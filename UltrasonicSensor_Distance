@@ -1,0 +1,31 @@
+#include <NewPing.h>
+
+// Define pins for ultrasonic sensor
+#define TRIGGER_PIN 32  // GPIO 32 for Trigger
+#define ECHO_PIN 33     // GPIO 33 for Echo
+#define MAX_DISTANCE 200  // Maximum distance in cm
+
+// Initialize NewPing object
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+
+void setup() {
+  Serial.begin(9600);  // Start serial communication at 9600 baud
+  Serial.println("Ultrasonic Sensor Initialized!");
+}
+
+void loop() {
+  // Measure distance
+  unsigned int distance = sonar.ping_cm();
+
+  // Print the distance to Serial Monitor
+  Serial.print("Distance: ");
+  if (distance > 0) {
+    Serial.print(distance);
+    Serial.println(" cm");
+  } else {
+    Serial.println("Out of range!");
+  }
+
+  // Wait before next measurement
+  delay(1000);  // Adjust delay based on your needs
+}
